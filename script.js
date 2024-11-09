@@ -8,7 +8,7 @@ boxes.forEach(ev => {
         if(!isGameOver && ev.innerHTML === ''){
             ev.innerHTML = turn 
             checkWin()
-            // checkDraw()
+            checkDraw()
             changeTurn()
         }
     })
@@ -53,3 +53,32 @@ const checkWin = () => {
         }
     }
 }
+
+const checkDraw = () => {
+    if(!isGameOver){
+        let isDraw = true;
+        boxes.forEach(ev => {
+            if(ev.innerHTML === '') isDraw = false;
+        })
+
+        if(isDraw){
+            isGameOver = true;
+            document.querySelector('#results').innerHTML = 'Its Draw';
+            document.querySelector('#play-again').style.display = 'inline-block'
+        }
+    }
+}
+
+document.querySelector('#play-again').addEventListener('click', () => {
+    isGameOver = false
+    turn = 'X'
+    document.querySelector('.bg').style.left = '0'
+    document.querySelector('#results').innerHTML = ''
+    document.querySelector('#play-again').style.display = 'none'
+
+    boxes.forEach( ev => {
+        ev.innerHTML = ''
+        ev.style.removeProperty('background-color')
+        ev.style.color = '#fff'
+    })
+})
